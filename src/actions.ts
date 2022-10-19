@@ -1,54 +1,86 @@
-import { useState, useEffect } from "react";
-import type { Movie, Character } from "./types";
+import { useRouter } from 'next/router';
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import type { Movie, Character } from './types';
 
-/**
- * TODO: dodaj typy
- */
-async function fetchMethod(...args) {
-  const res = await fetch(...args);
-  return await res.json();
+async function fetchMethod<T>(resource: string) {
+  const cache = window.localStorage;
+  const prefix = 'SWAPICache';
+
+  const url = `https://swapi.dev/api/${resource}`;
+  const cached = cache.getItem(`${prefix}.${resource}`);
+
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
+  try {
+    const res = await fetch(url);
+    const resJSON = (await res.json()) as T;
+    cache.setItem(`${prefix}.${resource}`, JSON.stringify(resJSON));
+    return resJSON;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-// docs: https://swapi.dev/
-const endpoint = "https://swapi.dev/api";
-
-const regex = /(\d+)\/$/;
-export const getUrlID = (link: string) => {
-  const match = link.match(regex);
-  return match && match[1];
-};
-
-export const useMovies = () => {
+export const useMovies = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
   const [response, setResponse] = useState<Movie[] | undefined>(undefined);
 
   useEffect(() => {
-    /**
-     * TODO: moze da się jakoś lepiej pobierać dane :)
-     */
-    fetchMethod<{ results: Movie[] }>(`${endpoint}/films/`).then(
-      ({ results }) => {
-        setResponse(results);
-      }
-    );
+    setIsLoading(true);
+    fetchMethod<{ results: Movie[] }>('films').then(({ results }) => {
+      setResponse(results);
+      setIsLoading(false);
+    });
   }, []);
 
   return response;
 };
 
-export const useMovie = () => {
-  /**
-   * TODO: ${endpoint}/films/${id}
-   */
+export const useMovie = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+  const router = useRouter();
+  const [response, setResponse] = useState<Movie | undefined>(undefined);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setIsLoading(true);
+      fetchMethod<Movie>(`films/${router.query.id}`).then((response) => {
+        setResponse(response);
+        setIsLoading(false);
+      });
+    }
+  }, [router]);
+
+  return response;
 };
 
-export const useCharacters = () => {
-  /**
-   * TODO: ${endpoint}/people
-   */
+export const useCharacters = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+  const [response, setResponse] = useState<Character[] | undefined>(undefined);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchMethod<{ results: Character[] }>('people').then(({ results }) => {
+      setResponse(results);
+      setIsLoading(false);
+    });
+  }, []);
+
+  return response;
 };
 
-export const useCharacter = () => {
-  /**
-   * TODO: ${endpoint}/people/${id}
-   */
+export const useCharacter = (setIsLoading: Dispatch<SetStateAction<boolean>>) => {
+  const router = useRouter();
+  const [response, setResponse] = useState<Character | undefined>(undefined);
+
+  useEffect(() => {
+    if (router.isReady) {
+      setIsLoading(true);
+      fetchMethod<Character>(`people/${router.query.id}`).then((response) => {
+        setResponse(response);
+        setIsLoading(false);
+      });
+    }
+  }, [router]);
+
+  return response;
 };

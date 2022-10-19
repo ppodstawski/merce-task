@@ -1,10 +1,10 @@
-/**
- * TODO: uzupełnij brakujące typy
- */
-
 export type Breadcrumb = {
-  // TODO
+  href: string;
+  label: string;
+  isCurrent: boolean;
 };
+
+export type PageDetails = { isDetails: boolean; pageTitle: string };
 
 export type Movie = {
   title: string;

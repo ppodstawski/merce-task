@@ -1,8 +1,16 @@
-import type { NextPage } from "next";
-import Link from "next/link";
-import styles from "../styles/Layout.module.css";
+import type { NextPage } from 'next';
+import Link from 'next/link';
+import { useEffect } from 'react';
+import styles from '../styles/Layout.module.scss';
 
-const Home: NextPage = () => {
+const Home: NextPage<{ showPageDetails: Function }> = (props) => {
+  useEffect(() => {
+    props.showPageDetails({
+      isDetails: false,
+      pageTitle: 'Strona główna'
+    });
+  }, []);
+
   return (
     <div className={styles.container}>
       <ul>

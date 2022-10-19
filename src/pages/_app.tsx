@@ -1,28 +1,40 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import Breadcrumbs from "../components/Breadcrumbs";
-import Head from "next/head";
-import Link from "next/link";
+import type { AppProps } from 'next/app';
+import Breadcrumbs from '../components/Breadcrumbs';
+import Head from 'next/head';
+import { useState } from 'react';
+import { PageDetails } from '../types';
+import { useRouter } from 'next/router';
+import '../styles/globals.scss';
+import ReviewContextProvider from '../store/reviews-context';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Head>
-        <title>
-          Zadanie testowe -
-          {/**
-           * TODO: Dodaj tytuł aktualnej strony
-           */}
-        </title>
-      </Head>
-      <Breadcrumbs />
-      <Component {...pageProps} />
+  const router = useRouter();
+  const [detailsPageInfo, setDetailsLastPageInfo] = useState<PageDetails>({
+    isDetails: false,
+    pageTitle: ''
+  });
 
-      {/**
-       * TODO: powrót do poprzedniej strony jeśli nie jesteśmy aktualnie na stronie głównej
-       */}
-      <Link href="/">Powrót</Link>
-    </>
+  const setPageDetails = (details: PageDetails) => {
+    setDetailsLastPageInfo(details);
+  };
+
+  return (
+    <ReviewContextProvider>
+      <Head>
+        <title>{'SWAPI - ' + detailsPageInfo.pageTitle}</title>
+      </Head>
+      <h1>SWAPI - 'MERCE TASK</h1>
+      <Breadcrumbs details={detailsPageInfo} />
+      <Component {...pageProps} showPageDetails={setPageDetails} />
+
+      {router.asPath !== '/' && (
+        <div className="backButtonBox">
+          <button className="buttonHover" onClick={() => router.back()}>
+            Powrót
+          </button>
+        </div>
+      )}
+    </ReviewContextProvider>
   );
 }
 

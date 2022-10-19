@@ -1,0 +1,21 @@
+.breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  max-width: 90vw;
+  padding: 20px;
+  margin: 0 5vw 20px;
+  list-style: none;
+  background-color: black;
+
+  li:not(:first-child)::before {
+    content: '-';
+    margin: 0 1rem;
+  }
+}
+
+.container {
+  max-width: 90vw;
+  padding: 20px;
+  margin: 0 5vw 20px;
+  background-color: black;
+}
