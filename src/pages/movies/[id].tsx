@@ -22,7 +22,7 @@ const Movie: NextPage<{ showPageDetails: Function }> = (props) => {
   return (
     <div className={styles.container}>
       {isLoading && <Loading />}
-      <h3>Film: {movie && movie.title}</h3>
+      <h3 className="pageTitle">Film: {movie && movie.title}</h3>
       <p>{movie && movie.opening_crawl}</p>
       <h4>Postacie:</h4>
       <ul>

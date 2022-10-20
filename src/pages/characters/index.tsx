@@ -20,7 +20,7 @@ const Characters: NextPage<{ showPageDetails: Function }> = (props) => {
   return (
     <div className={styles.container}>
       {isLoading && <Loading />}
-      <h3>Postacie</h3>
+      <h3 className="pageTitle">Postacie</h3>
       <ul>
         {characters &&
           characters.map((character, i) => {

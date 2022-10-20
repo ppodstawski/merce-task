@@ -1,15 +1,35 @@
+@import 'vars.scss';
+
 .breadcrumbs {
-  display: flex;
-  flex-direction: row;
+  list-style: none;
   max-width: 90vw;
   padding: 20px;
   margin: 0 5vw 20px;
-  list-style: none;
   background-color: black;
 
-  li:not(:first-child)::before {
-    content: '-';
-    margin: 0 1rem;
+  @include breakpoint-min($bp-small) {
+    display: flex;
+    flex-direction: row;
+  }
+
+  li {
+    margin-bottom: 20px;
+    @include breakpoint-min($bp-small) {
+      margin-bottom: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:not(:first-child)::before {
+      @include breakpoint-min($bp-small) {
+        content: '-';
+        margin: 0 1rem;
+      }
+    }
+  }
+
+  i {
+    font-style: normal;
   }
 }
 
@@ -18,4 +38,25 @@
   padding: 20px;
   margin: 0 5vw 20px;
   background-color: black;
+}
+
+.mainMenu {
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+  li {
+    a {
+      padding: 20px 60px;
+      border-radius: 12px;
+      background-color: rgb(10, 10, 141);
+      border: 2px solid white;
+      font-size: 1.2rem;
+      transition: all linear 0.1s;
+      &:hover {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
 }

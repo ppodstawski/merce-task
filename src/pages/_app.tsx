@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       {router.asPath !== '/' && (
         <div className="backButtonBox">
           <button className="buttonHover" onClick={() => router.back()}>
-            Powrót
+            &#8249; Powrót
           </button>
         </div>
       )}

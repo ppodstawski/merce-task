@@ -1,0 +1,13 @@
+.reviewItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: rgb(10, 10, 141);
+  border-radius: 6px;
+  button {
+    padding: 4px 16px;
+    font-size: 1.6rem;
+  }
+}

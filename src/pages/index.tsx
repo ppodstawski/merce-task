@@ -13,7 +13,7 @@ const Home: NextPage<{ showPageDetails: Function }> = (props) => {
 
   return (
     <div className={styles.container}>
-      <ul>
+      <ul className={styles.mainMenu}>
         <li>
           <Link href="/movies">Filmy</Link>
         </li>

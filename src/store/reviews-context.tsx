@@ -45,6 +45,13 @@ const ReviewContextProvider: React.FC<PropsWithChildren> = (props) => {
   };
 
   const removeReviewHandler = (reviewId: string) => {
+    const storage = localStorage.getItem('reviews');
+    if (storage) {
+      const parsedReviews = JSON.parse(storage) as ReviewItem[];
+      const arrAfterDelete = parsedReviews.filter((item) => item.id !== reviewId);
+      localStorage.setItem('reviews', JSON.stringify(arrAfterDelete));
+    }
+
     setReview((prevReview) => {
       return prevReview.filter((review) => review.id !== reviewId);
     });

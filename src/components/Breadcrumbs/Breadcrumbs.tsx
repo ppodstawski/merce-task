@@ -37,7 +37,9 @@ const Breadcrumbs: React.FC<{ details: PageDetails }> = (props) => {
 
   return (
     <ul className={layout.breadcrumbs}>
-      <BreadcrumbItem href="/">Strona główna</BreadcrumbItem>
+      <BreadcrumbItem href="/">
+        <i>&#9830;</i> Strona główna
+      </BreadcrumbItem>
       {breadcrumbs && breadcrumbs.length > 0
         ? breadcrumbs.map((breadcrumb) => (
             <BreadcrumbItem key={breadcrumb.href} href={breadcrumb.href}>

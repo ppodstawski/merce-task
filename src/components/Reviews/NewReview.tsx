@@ -1,5 +1,6 @@
 import { useRef, useContext } from 'react';
 import { ReviewContext } from '../../store/reviews-context';
+import classes from './NewReview.module.scss';
 
 const NewReview: React.FC<{ forItem: string; type: string }> = (props) => {
   const reviewCtx = useContext(ReviewContext);
@@ -15,13 +16,14 @@ const NewReview: React.FC<{ forItem: string; type: string }> = (props) => {
     }
 
     reviewCtx.addReview(props.type, props.forItem, enteredText);
+    reviewTextInputRef.current!.value = '';
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <label htmlFor="text">Review text</label>
+    <form className={classes.newReview} onSubmit={submitHandler}>
+      <label htmlFor="text">Twoja recenzja:</label>
       <input type="text" id="text" ref={reviewTextInputRef} />
-      <button>Add Review</button>
+      <button>Dodaj!</button>
     </form>
   );
 };

@@ -21,10 +21,12 @@ const Character: NextPage<{ showPageDetails: Function }> = (props) => {
   return (
     <div className={styles.container}>
       {isLoading && <Loading />}
-      <h3>Postać: {character && character.name}</h3>
+      <h3 className="pageTitle">Postać: {character && character.name}</h3>
+      <h4>Podstawowe dane:</h4>
       <p>Wzrost: {character && character.height}</p>
       <p>Masa: {character && character.mass}</p>
       <p>Data urodzenia: {character && character.birth_year}</p>
+      <h4>Filmy:</h4>
       <ul>
         {character && character.films.length > 0
           ? character.films.map((filmUrl) => {

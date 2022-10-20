@@ -20,7 +20,7 @@ const Movies: NextPage<{ showPageDetails: Function }> = (props) => {
   return (
     <div className={styles.container}>
       {isLoading && <Loading />}
-      <h3>Filmy</h3>
+      <h3 className="pageTitle">Filmy</h3>
       <ul>
         {movies &&
           movies.map((movie, i) => {

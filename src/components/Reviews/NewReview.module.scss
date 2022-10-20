@@ -1,0 +1,39 @@
+@import '../../styles/vars.scss';
+
+.newReview {
+  label {
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 12px;
+    @include breakpoint-min($bp-small) {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+  }
+  input {
+    max-width: 240px;
+    padding: 7px;
+    font-size: 1rem;
+    outline: 0;
+    border: 2px solid white;
+    margin-right: 2px;
+    &:focus {
+      border: 2px solid rgb(10, 10, 141);
+    }
+    @include breakpoint-min($bp-small) {
+      max-width: none;
+    }
+  }
+  button {
+    padding: 7px 24px;
+    border: 2px solid white;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    font-size: 1rem;
+    background-color: white;
+    &:hover {
+      background-color: rgb(10, 10, 141);
+      color: white;
+    }
+  }
+}
